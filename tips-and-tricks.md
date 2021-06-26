@@ -96,6 +96,7 @@ Pass
 }
 ```
 Comparison without and with this pass
+
 ![img](images/Misc1.png)
 
 ### Checking if a texture exists
