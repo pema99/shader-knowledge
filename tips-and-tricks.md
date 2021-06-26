@@ -131,3 +131,16 @@ bool isInMirror()
 Depth based effects will show up incorrectly in VRChat mirrors without special handling. For an example on how to do this handling, check Lukis shader here:
 
 https://github.com/lukis101/VRCUnityStuffs/blob/master/Shaders/DJL/Overlays/WorldPosOblique.shader
+
+### Depth buffer is reversed on Oculus Quest
+When writing shaders for the quest, make sure to use the `UNITY_REVERSED_Z` macro.
+For example:
+```glsl
+float z = /* some depth buffer value */;
+
+#if UNITY_REVERSED_Z
+z = 1.0 - z;
+#endif
+
+...
+```
