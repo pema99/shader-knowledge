@@ -6,3 +6,9 @@ Trying to document obscure technical VRChat knowledge
 - [Shader data to udon](shader-data-to-udon.md) - Reading data from shaders into Udon
 - [Tips and tricks](tips-and-tricks.md) - Various smaller nuggets of knowledge
 - [Resources](resources.md) - Various external resources containing knowledge of varying degrees of obscurity
+
+# TODO
+- Shader property tricks
+- GPU instancing for object positions
+- Raymarching in VRC
+- Geometry shaders
