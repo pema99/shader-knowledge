@@ -85,3 +85,43 @@ float4 frag (centroid float4 p : SV_POSITION) : SV_Target
     return any(frac(p).xy != 0.5);
 }
 ```
+
+### Avoiding draw order issues with transparent shaders
+You can add a pass in front of the main pass for a transparent shader which just fills the depth buffer as such:
+```glsl
+Pass
+{
+    ZWrite On
+    ColorMask 0
+}
+```
+Comparison without and with this pass
+![img](images/Misc1.png)
+
+### Checking if a texture exists
+You can check for existance (if it has been set) of a texture as such:
+```glsl
+Texture2D _MyTexture;
+
+bool TextureExists()
+{
+    int width, height;
+    _MyTexture.GetDimensions(width, height);
+    return width > 16;
+}
+```
+This is especially useful when accessing globally exported GrabPass textures. Keep in mind the texture must be declared as `Texture2D`, not `sampler2D`.
+
+### GLSL modulo operator
+Use this instead of HLSL's piece of shit `fmod`. It behaves better on negative numbers.
+```glsl
+#define glsl_mod(x,y) (((x)-(y)*floor((x)/(y))))
+```
+
+### Check if shader is being rendered in mirror
+```glsl
+bool isInMirror()
+{
+    return unity_CameraProjection[2][0] != 0.f || unity_CameraProjection[2][1] != 0.f;
+}
+```
