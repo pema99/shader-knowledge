@@ -126,3 +126,8 @@ bool isInMirror()
     return unity_CameraProjection[2][0] != 0.f || unity_CameraProjection[2][1] != 0.f;
 }
 ```
+
+### Depth based effects in mirrors
+Depth based effects will show up incorrectly in VRChat mirrors without special handling. For an example on how to do this handling, check Lukis shader here:
+
+https://github.com/lukis101/VRCUnityStuffs/blob/master/Shaders/DJL/Overlays/WorldPosOblique.shader
