@@ -112,6 +112,9 @@ float4 clip_pos = mul(UNITY_MATRIX_VP, float4(hit_position, 1.0));
 depth = clip_pos.z / clip_pos.w;
 ```
 
+## SV_DepthLessEqual
+One issue with writing to the SV_Depth semantic is that disables early Z testing, which might cause performance issues. Another, lesser known semantic exists, which allows you to write depth without disabling early Z testing. The semantic `SV_DepthLessEqual` functions the same as `SV_Depth` but doesn't disable early Z testing as long as the written value is less or equal to the value determined by the rasterizer.
+
 ## Performance considerations
 Please remember that raymarching can be very expensive, especially in VR at Index-like resolutions. As a rule of thumb:
 
