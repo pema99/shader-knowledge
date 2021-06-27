@@ -35,6 +35,7 @@ At the end of this, your setup should look roughly like so:
 - Change the last line of the frag function from `return col;` to `return frac(col + 0.01);`, this should cause the quad to be colored slightly brighter than it was last frame, every frame, until the color becomes fully white and wraps around. `col` will be the color the quad at the current pixel last frame.
 - Enter play mode to see the camera loop in action
 ![img](images/CamLoop2.gif)
+
 In general, you can read any pixel of the the RenderTexture within the shader to get the color at that pixel _last_ frame. Calculations can then be based on these colors.
 
 ## Double buffering
