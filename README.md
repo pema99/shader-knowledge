@@ -1,5 +1,5 @@
 # Shader knowledge
-Trying to document obscure technical VRChat knowledge
+Trying to document obscure technical VRChat knowledge, mostly related to shader development. If I'm wrong about something feel free to correct me with an issue, PR, or message on discord at Pema99#9042. Same goes if you have any topics to add information about.
 
 # Table of contents
 - [Camera loops](camera-loops.md) - Using cameras for stateful shaders.
