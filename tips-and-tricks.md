@@ -24,6 +24,21 @@ It is important to set the 'Render Mode' of the point light to 'Not Important' t
 
 If possible, you should also put the lights 'Culling Mask' to only 'UiMenu' and put whatever you want to interact with the light on that same layer. That way, you don't add passes to everybodies avatar, causing lag. The UiMenu layer, unlike most other layers, is usable even on avatars.
 
+The `unity_4LightPos` arrays will contain positions of vertex lights, but may also contain positions of pixel lights (Render Mode = Important or Auto) if the shader doesn't contain an add pass. To prevent these arrays from being polluted with random pixel lights, you can add an additional pass to the shader with the tag `Tags { "LightMode"="ForwardAdd" }`, which does nothing:
+```glsl
+... main pass goes above here
+
+Pass
+{
+    Tags { "LightMode"="ForwardAdd" }
+    CGPROGRAM
+    #pragma vertex empty
+    #pragma fragment empty
+    void empty(){}
+    ENDCG
+}
+```
+
 ### Worldspace from depth
 You can get world space position from the camera depth texture. Here is an example of how to do it. Not sure where this code came from initially, but credits to whoever wrote it. I think it was error.mdl.
 
@@ -60,6 +75,12 @@ float4 frag (v2f i) : SV_Target
     float3 normal = normalize(cross(wposy,wposx)); // world space fragment normal
     ...
 ```
+
+### Depth based effects in mirrors
+Depth based effects will show up incorrectly in VRChat mirrors without special handling. For an example on how to do this handling, check Lukis shader here:
+
+https://github.com/lukis101/VRCUnityStuffs/blob/master/Shaders/DJL/Overlays/WorldPosOblique.shader
+
 
 ### Exporting textures with GrabPass
 Textures from named GrabPasses will be available globally in any shader, ie:
@@ -126,11 +147,6 @@ bool isInMirror()
     return unity_CameraProjection[2][0] != 0.f || unity_CameraProjection[2][1] != 0.f;
 }
 ```
-
-### Depth based effects in mirrors
-Depth based effects will show up incorrectly in VRChat mirrors without special handling. For an example on how to do this handling, check Lukis shader here:
-
-https://github.com/lukis101/VRCUnityStuffs/blob/master/Shaders/DJL/Overlays/WorldPosOblique.shader
 
 ### Depth buffer is reversed on Oculus Quest
 When writing shaders for the quest, make sure to use the `UNITY_REVERSED_Z` macro.
