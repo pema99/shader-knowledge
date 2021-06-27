@@ -144,3 +144,42 @@ z = 1.0 - z;
 
 ...
 ```
+
+### Some tricks with shader properties
+You can make an integer slider property using the IntRange attribute such:
+
+```glsl
+Properties {
+    [IntRange] _MyIntSlider ("My Int Slider", Range(0, 10)) = 0
+}
+```
+
+Properties can be used to control shader settings such as culling, blend modes, depth buffer writing, etc. Example:
+
+```glsl
+Properties
+{
+    [Enum(UnityEngine.Rendering.CullMode)] _Cull ("Cull", Float) = 0
+    [ToggleUI] _ZWrite ("ZWrite", Float) = 0
+}
+SubShader
+{
+    Cull [_Cull]
+    ZWrite [_ZWrite]
+}
+```
+
+**Always** make sure to use the `[ToggleUI]` attribute for checkboxes. Never use `[Toggle]` as it implicitly creates a keyword.
+
+You can also create enum dropdown properties manually as such:
+```glsl
+Properties {
+    [Enum(One,1,SrcAlpha,5)] _Blend2 ("Blend mode subset", Float) = 1
+}
+```
+The values are pairs of (dropdown name, dropdown value).
+
+### Applying default texture to shader
+If you open the inspector for a **shader** (not a specific material), you can drag default values for textures on to each texture property. Any material created from the shader will inherit this texture as the default.
+
+![img](image/../images/Misc2.png)

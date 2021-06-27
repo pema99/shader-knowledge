@@ -2,13 +2,12 @@
 Trying to document obscure technical VRChat knowledge
 
 # Table of contents
-- [Camera loops](camera-loops.md) - Using cameras for stateful shaders
-- [Shader data to udon](shader-data-to-udon.md) - Reading data from shaders into Udon
-- [Tips and tricks](tips-and-tricks.md) - Various smaller nuggets of knowledge
-- [Resources](resources.md) - Various external resources containing knowledge of varying degrees of obscurity
+- [Camera loops](camera-loops.md) - Using cameras for stateful shaders.
+- [Shader data to udon](shader-data-to-udon.md) - Reading data from shaders into Udon.
+- [GPU Instancing](gpu-instancing.md) - Abuse for tracking positions of objects in a shader.
+- [Raymarching](raymarching.md) - Tips for raymarched shaders, not very useful if you don't understand raymarching.
+- [Tips and tricks](tips-and-tricks.md) - Various smaller nuggets of knowledge.
+- [Resources](resources.md) - Various external resources containing knowledge of varying degrees of obscurity.
 
 # TODO
-- Shader property tricks
-- GPU instancing for object positions
-- Raymarching in VRC
 - Geometry shaders
