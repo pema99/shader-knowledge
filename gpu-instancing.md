@@ -56,7 +56,7 @@ Inside of this guard, declare a value of your input struct to the fragment funct
 v2f dummy;
 ```
 
-Next, we'll use the `UNITY_SETUP_INSTANCE_ID(...)` macro to get the positions of each of the renderers. Calling this macro will change the value of `unity_ObjectToWorld` to correspond to the matrix for the renderer with the given instance. We can then extract position in world space from the last column of this:
+Next, we'll use the `UNITY_SETUP_INSTANCE_ID(...)` macro to get the positions of each of the renderers. Calling this macro will change the value of `unity_ObjectToWorld` to correspond to the matrix for the renderer with the given instance ID. We can then extract position in world space from the last column of this:
 ```glsl
 float3 cube_positions[3];
 for (int idx = 0; idx < 3; idx++)
