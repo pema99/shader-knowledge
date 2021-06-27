@@ -55,7 +55,7 @@ A more proper solution is 2 use camera loops, where one of them acts like a doub
 - Make a new RenderTexture with the same settings as the first
 - Make a new material using a simple unlit shader (not the shader you wrote previously)
 - Apply the new RenderTexture to the new material
-- Assing the new RenderTexture to the duplicated camera
+- Assign the new RenderTexture to the duplicated camera
 - Now, to set up the double buffering loop, make sure that the material on each cameras quad reads from the _opposite_ texture of what the camera is writing to.
   
 In other words, with 2 cameras CamA and CamB with 2 materials MatA and MatB reading from 2 RenderTextures TexA and TexB, the setup is as follows:
