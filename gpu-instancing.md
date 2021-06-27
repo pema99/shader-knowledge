@@ -38,7 +38,7 @@ That's it, you are now ready to sample the positions of different renderers usin
 ## Sampling renderer positions
 First, setup your scene:
 - Make a renderer (a cube for example) for each object you want to track the position of
-- Make _one_ material for the renderers. All renderers should be using the same material
+- Make **one** material for the renderers. All renderers should be using the same material
 - Make sure the 'GPU Instancing' checkbox is ticked on the material
 - Apply the material to each of the renderers
 
