@@ -1,5 +1,11 @@
 # TODO
 
-Performance rank
+Geometry shaders are cool and epic and be used to create geometry on the fly in shaders
 
-Example
+Performance rank spoofing
+
+Geometry instancing and limits
+
+Blitting to camera loops
+
+Examples
