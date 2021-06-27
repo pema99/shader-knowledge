@@ -146,9 +146,10 @@ public class SetSortingOrder : MonoBehaviour
 }
 ```
 
-Add the script to each of the renderers, and make sure to set a different number for each in the inspector. Then, enable the script on each of the renderers. I used 0, 1, 2. Let's test it out:
+Add the script to each of the renderers, and make sure to set a different number for each in the inspector. I used 0, 1, 2. Then, enable the script on each of the renderers. Let's test it out:
 
 ![img](images/Instance3.gif)
+
 Notice how you can now rely on the instance IDs being stable!
 
 To further illustrate, let's try shading each renderer based on its instance ID:
