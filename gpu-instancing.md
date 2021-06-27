@@ -127,7 +127,7 @@ Now the cube with scale of 0.4 is rendered differently from the other 2, even th
 
 ![img](image/../images/Instance2.gif)
 
-This solution isn't very robust though, so a better solution is described in the followin section.
+This solution isn't very robust though, so a better solution is described in the following section.
 
 #### Solution two - Set Renderer.sortingOrder
 Resident genius lox9973 found that one can set the sortingOrder property of each renderer to uniquely identify each renderer with an instance ID that doesn't change. This serialized property is not exposed in the inspector, but can be set via an editor script. Let's write a script to do this:
