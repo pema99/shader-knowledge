@@ -133,6 +133,7 @@ bool TextureExists()
 }
 ```
 This is especially useful when accessing globally exported GrabPass textures. Keep in mind the texture must be declared as `Texture2D`, not `sampler2D`.
+Thanks to ACIIL for finding this originally.
 
 ### GLSL modulo operator
 Use this instead of HLSL's piece of shit `fmod`. It behaves better on negative numbers.
