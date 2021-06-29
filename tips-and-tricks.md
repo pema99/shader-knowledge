@@ -39,49 +39,6 @@ Pass
 }
 ```
 
-### Worldspace from depth
-You can get world space position from the camera depth texture. Here is an example of how to do it. Not sure where this code came from initially, but credits to whoever wrote it. I think it was error.mdl.
-
-```glsl
-struct v2f
-{
-    float2 uv : TEXCOORD0;
-    float4 vertex : SV_POSITION;
-    float4 grabPos : TEXCOORD1;
-    float3 ray : TEXCOORD2;
-}
-
-sampler2D _CameraDepthTexture;
-
-v2f vert (appdata v)
-{
-    v2f o;
-    o.vertex = UnityObjectToClipPos(v.vertex);
-    o.uv = v.uv;
-    o.grabPos = ComputeScreenPos(o.vertex);
-    o.ray = mul(UNITY_MATRIX_MV, v.vertex).xyz * float3(-1,-1,1);
-    return o;
-}
-
-float4 frag (v2f i) : SV_Target
-{
-    float rawDepth = DecodeFloatRG(tex2Dproj(_CameraDepthTexture, i.grabPos));
-    float linearDepth = Linear01Depth(rawDepth);
-    i.ray = i.ray * (_ProjectionParams.z / i.ray.z);
-    float4 vpos = float4(i.ray * linearDepth, 1);
-    float3 wpos = mul(unity_CameraToWorld, vpos).xyz; // world space frament position
-    float3 wposx = ddx(wpos);
-    float3 wposy = ddy(wpos);
-    float3 normal = normalize(cross(wposy,wposx)); // world space fragment normal
-    ...
-```
-
-### Depth based effects in mirrors
-Depth based effects will show up incorrectly in VRChat mirrors without special handling. For an example on how to do this handling, check Lukis shader here:
-
-https://github.com/lukis101/VRCUnityStuffs/blob/master/Shaders/DJL/Overlays/WorldPosOblique.shader
-
-
 ### Exporting textures with GrabPass
 Textures from named GrabPasses will be available globally in any shader, ie:
 
@@ -135,6 +92,13 @@ bool TextureExists()
 This is especially useful when accessing globally exported GrabPass textures. Keep in mind the texture must be declared as `Texture2D`, not `sampler2D`.
 Thanks to ACIIL for finding this originally.
 
+To make use of this in a surface shader, you should wrap the code in a `SHADER_TARGET_SURFACE_ANALYSIS` guard:
+```glsl
+#ifndef SHADER_TARGET_SURFACE_ANALYSIS
+// call Texture2D.GetDimensions here
+#endif
+```
+
 ### GLSL modulo operator
 Use this instead of HLSL's piece of shit `fmod`. It behaves better on negative numbers.
 ```glsl
@@ -147,19 +111,6 @@ bool isInMirror()
 {
     return unity_CameraProjection[2][0] != 0.f || unity_CameraProjection[2][1] != 0.f;
 }
-```
-
-### Depth buffer is reversed on Oculus Quest
-When writing shaders for the quest, make sure to use the `UNITY_REVERSED_Z` macro.
-For example:
-```glsl
-float z = /* some depth buffer value */;
-
-#if UNITY_REVERSED_Z
-z = 1.0 - z;
-#endif
-
-...
 ```
 
 ### Some tricks with shader properties

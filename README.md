@@ -7,5 +7,6 @@ Trying to document obscure technical VRChat knowledge, mostly related to shader 
 - [GPU instancing](gpu-instancing.md) - Abuse for tracking positions of objects in a shader.
 - [Geometry shaders](geometry-shaders.md) - Some information about everyones favorite oddball type of shader.
 - [Raymarching](raymarching.md) - Tips for raymarched shaders, not very useful if you don't understand raymarching.
+- [Depth texture](depth-texture.md) - Information about depth based effects.
 - [Tips and tricks](tips-and-tricks.md) - Various smaller nuggets of knowledge.
 - [Resources](resources.md) - Various external resources containing knowledge of varying degrees of obscurity.
