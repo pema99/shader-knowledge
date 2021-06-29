@@ -188,3 +188,30 @@ bool isInMirror()
     return unity_CameraProjection[2][0] != 0.f || unity_CameraProjection[2][1] != 0.f;
 }
 ```
+
+### Inline sampler states
+Sometimes you want to control the settings used for sampling a texture you don't have access to the importer for, like a texture exported from a GrabPass. In such cases, you can use inline sampler states ([https://docs.unity3d.com/Manual/SL-SamplerStates.html](https://docs.unity3d.com/Manual/SL-SamplerStates.html)). The idea is to include certain keywords in the name of your `SamplerState` declaration:
+
+```glsl
+Texture2D _MainTex;
+SamplerState my_point_clamp_sampler;
+// ...
+half4 color = _MainTex.Sample(my_point_clamp_sampler, uv);
+```
+Notice the name 'my_point_clamp_sampler'. The following case insensitive keywords apply:
+| Keyword    | Meaning                                   |
+|------------|-------------------------------------------|
+| Point      | Point (nearest neighbor) filtering.       |
+| Linear     | Bilinear filtering.                       |
+| Trilinear  | Trilinear filtering.                      |
+| Clamp      | Clamp when reading outside of [0;1]       |
+| Repeat     | Repeat when reading outside of [0;1]      |
+| Mirror     | Mirror when reading outside of [0;1]      |
+| MirrorOnce | Mirror Once when reading outside of [0;1] |
+| Compare    | Set up sampler for depth comparison       |
+
+### Shader fallbacks
+When someone doesn't show the shaders on your avatar via safety settings, a fairly non-trivial system decides which built in shader to use instead. The only explanation for the logic this system uses is described here:
+[https://pastebin.com/92gwQqCM](https://pastebin.com/92gwQqCM).
+
+Thanks to Red_Mage for sharing.
