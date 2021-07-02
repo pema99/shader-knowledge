@@ -92,3 +92,4 @@ float4 frag(v2f i) : SV_Target {
 Some things to keep in mind when using camera loops:
 - Cameras are **friends only** regardless of safety settings.
 - If you add someone using a camera-utilizing shader, you'll have to rejoin the instance to see it.
+- Cloning an avatar using a camera loop causes jankiness because both instances of the avatar will be writing to the same rendertexture as it's based off of the avatar's id. You can get around this is to upload the same avatar with different ids by detaching the blueprint id for each upload.   
