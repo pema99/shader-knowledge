@@ -215,3 +215,14 @@ When someone doesn't show the shaders on your avatar via safety settings, a fair
 [https://pastebin.com/92gwQqCM](https://pastebin.com/92gwQqCM).
 
 Thanks to Red_Mage for sharing.
+
+### Update When Offscreen setting for Skinned Mesh Renderer
+The "Update When Offscreen" setting on Skinned Mesh Renderers has special behavior in VRChat.
+
+For the local avatar, this setting is forced **on**.
+
+For all remote avatars, this setting is forced **off**.
+
+Both of these behaviors happen regardless of the settings you have chosen. This can cause culling issues when part of a Skinned Mesh Renderer is outside of its minimal bounding box (for example when creating geometry with a geometry shader), and may lead to issues where remote players can see the geometry, but the local player cannot.
+
+Thank you Lox for enlightening me with this arcane knowledge.
