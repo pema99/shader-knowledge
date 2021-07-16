@@ -87,7 +87,7 @@ float4 frag (v2f i, float facing : VFACE) : SV_Target
     float ray_origin = ...;
 
     if (facing > 0) // if front face, move ray origin to vertex pos
-        ro = i.vert_position;
+        ray_origin = i.vert_position;
 }
 ```
 
