@@ -226,3 +226,40 @@ For all remote avatars, this setting is forced **off**.
 Both of these behaviors happen regardless of the settings you have chosen. This can cause culling issues when part of a Skinned Mesh Renderer is outside of its minimal bounding box (for example when creating geometry with a geometry shader), and may lead to issues where remote players can see the geometry, but the local player cannot.
 
 Thank you Lox for enlightening me with this arcane knowledge.
+
+### Usable default values for shader texture properties
+When declaring a texture property in a shader, you can set a default value for it:
+```txt
+_MainTex ("My Texture", 2D) = "white"{}
+```
+Most people know of values such as "white" and "black", but there are quite a few other undocumented ones. Here is a list of some values you can use:
+```glsl
+red
+gray
+grey
+linearGray
+linearGrey
+grayscaleRamp
+greyscaleRamp
+bump
+blackCube
+lightmap
+unity_Lightmap
+unity_LightmapInd
+unity_ShadowMask
+unity_DynamicLightmap
+unity_DynamicDirectionality
+unity_DynamicNormal
+unity_DitherMask
+_DitherMaskLOD
+_DitherMaskLOD2D
+unity_RandomRotation16
+unity_NHxRoughness
+unity_SpecCube0
+unity_SpecCube1
+```
+This is useful for scenarios where you want users to be able to set an override for, for example, lightmaps or reflection probes:
+```txt
+_LightmapOverride ("Lightmap", 2D) = "unity_Lightmap"{}
+_ReflectionProbeOverride ("Reflection", CUBE) = "unity_SpecCube0"{}
+```
