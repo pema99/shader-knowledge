@@ -105,6 +105,7 @@ SubShader
         ...
         sampler2D _RT0;
         sampler2D _RT1;
+        sampler2D _RT2;
         ...
         ENDPROGRAM
     }
@@ -145,7 +146,7 @@ fragout frag (v2f i)
     fragout res;
     res.color0 = tex2D(_RT0, i.uv);
     res.color1 = tex2D(_RT1, i.uv);
-    res.color1 = tex2D(_RT2, i.uv);
+    res.color2 = tex2D(_RT2, i.uv);
     return res;
 }
 ```
