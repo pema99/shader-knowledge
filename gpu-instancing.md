@@ -167,3 +167,10 @@ float4 frag (v2f i) : SV_Target
 And see how every renderer is getting a different, stable shade of gray:
 
 ![img](images/Instance4.gif)
+
+## Directly accessing instance data buffer
+If you don't want to jump through the hoops of using macros to access specific transform matrices, you can directly access the data like so:
+```glsl
+unity_Builtins0Array[unity_BaseInstanceID + rendererID].unity_ObjectToWorldArray
+```
+Where `rendererID` is the instanceID of the renderer you want to access (the one assigned via `Renderer.sortingOrder` if you used that trick).
