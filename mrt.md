@@ -1,5 +1,5 @@
 # Multiple Render Targets
-Multiple Render Targets (MRT) is a technique that can be used to render to up to 8 RenderTextures in a single pass of a single shader. This is great for cleanliness and performance, but can only be used in worlds. For more information about MRT than I provide here, including great tips to make it performant, I suggest looking at [chlohr's great shadertrixx repo](https://github.com/pema99/shader-knowledge/blob/main/mrt.md).
+Multiple Render Targets (MRT) is a technique that can be used to render to up to 8 RenderTextures in a single pass of a single shader. This is great for cleanliness and performance, but can only be used in worlds. For more information about MRT than I provide here, including great tips to make it performant, I suggest looking at [chlohr's great shadertrixx repo](https://github.com/cnlohr/shadertrixx#mrt).
 
 ## How to setup
 MRT in its most basic form is fairly straight forward to setup:
