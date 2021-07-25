@@ -124,16 +124,14 @@ struct fragout
 fragout frag (v2f i)
 {
     fragout res;
-
     res.color0 = frac(tex2D(_RT0, i.uv) + 0.01);
     res.color1 = frac(tex2D(_RT1, i.uv) + 0.03);
     res.color2 = frac(tex2D(_RT2, i.uv) + 0.05);
-
     return res;
 }
 ```
 This will simulate 3 loops that each change color at different speeds. Now, we need the shader for double buffering. This will be set up in the same way, but with a fragment function that just does a simple data copy:
-```
+```glsl
 struct fragout
 {
     float4 color0 : SV_Target0;
