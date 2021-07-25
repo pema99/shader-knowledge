@@ -31,7 +31,7 @@ Now, let's write a shader that makes use of MRT. It is very simple to do, you mo
 #pragma fragment frag
 ...
 
-struct frag_out
+struct fragout
 {
     float4 color0 : SV_Target0;
     float4 color1 : SV_Target1;
@@ -39,9 +39,9 @@ struct frag_out
     float4 color3 : SV_Target3;
 };
 
-frag_out frag (v2f i)
+fragout frag (v2f i)
 {
-    frag_out res;
+    fragout res;
     res.color0 = float4(1, 0, 0, 1);
     res.color1 = float4(0, 1, 0, 1);
     res.color2 = float4(0, 0, 1, 1);
