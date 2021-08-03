@@ -79,6 +79,8 @@ void geom(triangle v2f IN[3],
 
 There are some limits to how much data each invocation of a geometry shader can produce. This can be increased multiplicatively using geometry instancing as shown above. When combined with tesselation, one can push an absurd amount of data out of a geometry shader.
 
+Some more information about this feature can be found on MSDN: https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/overviews-direct3d-11-hlsl-gs-instance
+
 ## Blitting to camera loops
 TODO
 
