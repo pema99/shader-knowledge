@@ -76,7 +76,7 @@ void geom(triangle v2f IN[3],
     ...
 }
 ```
-This example will essentially invoke the geometry function 8 times instead of only once, passing a different value to the input using the `SV_GSInstanceID` each time. In general, you should prefer geometry instancing over increasing the `maxvertexcount` for best performance.
+This example will essentially invoke the geometry function 8 times instead of only once, passing a different value to the input using the `SV_GSInstanceID` semantic each time. In general, you should prefer geometry instancing over increasing the `maxvertexcount` for best performance.
 
 There are some limits to how much data each invocation of a geometry shader can produce. This can be increased multiplicatively using geometry instancing as shown above. When combined with tesselation, one can push an absurd amount of data out of a geometry shader.
 
