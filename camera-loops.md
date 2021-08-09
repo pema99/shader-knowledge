@@ -36,7 +36,7 @@ At the end of this, your setup should look roughly like so:
 - Enter play mode to see the camera loop in action
 ![img](images/CamLoop2.gif)
 
-In general, you can read any pixel of the the RenderTexture within the shader to get the color at that pixel _last_ frame. Calculations can then be based on these colors.
+In general, you can read any pixel of the the RenderTexture within the shader to get the color at that pixel _last_ frame. Calculations can then be based on these colors. You can essentially view each pixel in the RenderTexture as a memory cell that can be read from and written to. For example, if the goal were to implement GPU-based particles, each pixel might store the position of a particle in its color.
 
 ## Double buffering
 Some RenderTexture formats will have issues with the current setup, specifically floating point formats. To demonstrate, change the RenderTextures 'Color Format' to 'ARGB Float'. Notice now that the quad will be a constant shade of gray, and the loop doesn't function. To fix this, I know of 2 methods:
