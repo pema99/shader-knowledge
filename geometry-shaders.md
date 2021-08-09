@@ -83,7 +83,7 @@ There are some limits to how much data each invocation of a geometry shader can 
 Some more information about this feature can be found on MSDN: https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/overviews-direct3d-11-hlsl-gs-instance
 
 ## Blitting to camera loops
-TODO
+One advanced use case for geometry shaders is enabling random writes in a camera loop. For more information on camera loops in general, see the separate [page on them](camera-loops.md). Camera loops have an inherent limitation in that you can only write to the pixel that is currently being shaded. Using a geometry shader, you can get around that limitation, by simply spawning geometry in front of the quad that the camera is capturing for the loop. Spawning a pixel-sized quad with a specific color in front of the camera is functionally equivalent to blitting a pixel with that color to the corresponding location in the RenderTexture.
 
 ## Examples
 TODO
