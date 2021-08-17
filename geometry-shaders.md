@@ -87,5 +87,8 @@ One advanced use case for geometry shaders is enabling random writes in a camera
 
 More generally, geometry shaders can be viewed as a tool for writing to RenderTextures in a flexible way - a loop is not strictly necessary. One thing I have used a geometry shader for in the past was storing the vertex positions of a skinned mesh for use in a different shader. I applied a geometry shader to the skinned mesh which created a grid of small quads, one for each vertex of the mesh, each with a color encoding the corresponding vertex position. A camera then captured this grid of quads to a RenderTexture which I could use elsewhere.
 
+## Blitting to CRT (Custom Render Texture)
+Similar as can be done with cameras, one can use geometry shaders to achieve arbitrary writes in Custom Render Texture shaders. For an example of this, see [cnlohr's flexcrt repo](https://github.com/cnlohr/flexcrt).
+
 ## Examples
 TODO
