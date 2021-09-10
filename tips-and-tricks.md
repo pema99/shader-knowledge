@@ -303,7 +303,7 @@ You can put various attributes in front of a switch statement, which can improve
 Which for some reason isn't the default.
 
 Some pages showing attributes for switch statements and other flow control:
-https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-switch
-https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-if
-https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-while
-https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-for
+- https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-switch
+- https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-if
+- https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-while
+- https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-for
