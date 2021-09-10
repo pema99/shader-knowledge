@@ -263,3 +263,31 @@ This is useful for scenarios where you want users to be able to set an override 
 _LightmapOverride ("Lightmap", 2D) = "unity_Lightmap"{}
 _ReflectionProbeOverride ("Reflection", CUBE) = "unity_SpecCube0"{}
 ```
+
+### CBuffer aliasing
+Unity only lets you set uniform arrays on a material up to a length of 1023. You can get around this limitation by aliasing arrays using `packoffset` in a cbuffer, like so:
+```glsl
+cbuffer ProgramBuffer {
+    float4 _Program[1023*4] : packoffset(c0);  
+    float4 _Program0[1023] : packoffset(c0);
+    float4 _Program1[1023] : packoffset(c1023);
+    float4 _Program2[1023] : packoffset(c2046);
+    float4 _Program3[1023] : packoffset(c3069);
+};
+```
+
+With this, each of the 4 numbered arrays will overlap with with larger array. By call `Material.SetVectorArray` 4 times, you can fill the entire array with data, foregoing the limitation, and letting you use the larger array in your shader. You can set each part like so:
+```csharp
+myMaterial.SetVectorArray("_Program0", arrayPart0);
+myMaterial.SetVectorArray("_Program1", arrayPart1);
+myMaterial.SetVectorArray("_Program2", arrayPart2);
+myMaterial.SetVectorArray("_Program3", arrayPart3);
+```
+
+When using this technique, you have to trick the compiler into not compiling out the seemingly unused arrays. You can do this by adding them to a calulation in your shader in a branch that will never be hit:
+```glsl
+// Hack to prevent unity from deleting aliased cbuffer. Branch will never be hit
+if (uv.x < 0) someValuedUsedInFurtherCalculation = _Program0[0] + _Program1[0] + _Program2[0] + _Program3[0]; 
+```
+
+The only limitation of this technique is the maximum size allowable for the cbuffer, which is 64kib, so for a float4 array (16 bytes per element), that gives you a max array size of roughly 4096. Keep in mind though, that Unity limits each aliased array to 1023 elements, not 1024!
