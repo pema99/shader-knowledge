@@ -276,7 +276,7 @@ cbuffer ProgramBuffer {
 };
 ```
 
-With this, each of the 4 numbered arrays will overlap with with larger array. By call `Material.SetVectorArray` 4 times, you can fill the entire array with data, foregoing the limitation, and letting you use the larger array in your shader. You can set each part like so:
+With this, each of the 4 numbered arrays will overlap with with larger array. By calling `Material.SetVectorArray` 4 times, you can fill the entire array with data, foregoing the limitation, and letting you use the larger array in your shader. You can set each part like so:
 ```csharp
 myMaterial.SetVectorArray("_Program0", arrayPart0);
 myMaterial.SetVectorArray("_Program1", arrayPart1);
