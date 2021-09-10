@@ -291,3 +291,19 @@ if (uv.x < 0) someValuedUsedInFurtherCalculation = _Program0[0] + _Program1[0] +
 ```
 
 The only limitation of this technique is the maximum size allowable for the cbuffer, which is 64kib, so for a float4 array (16 bytes per element), that gives you a max array size of roughly 4096. Keep in mind though, that Unity limits each aliased array to 1023 elements, not 1024!
+
+### Attributes on flow control
+You can put various attributes in front of a switch statement, which can improve performance quite a bit depending on the use case. For example, use `forcecase` to force the compiler to generate a jump table:
+```glsl
+[forcecase] switch (myValue)
+{
+   ...
+}
+```
+Which for some reason isn't the default.
+
+Some pages showing attributes for switch statements and other flow control:
+https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-switch
+https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-if
+https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-while
+https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-for
