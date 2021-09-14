@@ -82,15 +82,16 @@ There are some limits to how much data each invocation of a geometry shader can 
 
 Some more information about this feature can be found on MSDN: https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/overviews-direct3d-11-hlsl-gs-instance
 
-## Blitting to camera loops
+## Blitting to camera loops (or cameras in general)
 One advanced use case for geometry shaders is enabling random writes in a camera loop. For more information on camera loops in general, see the separate [page on them](camera-loops.md). Camera loops have an inherent limitation in that you can only write to the pixel that is currently being shaded. Using a geometry shader, you can get around that limitation, by simply spawning geometry in front of the quad that the camera is capturing for the loop. Spawning a pixel-sized quad with a specific color in front of the camera is functionally equivalent to blitting a pixel with that color to the corresponding location in the RenderTexture.
 
 More generally, geometry shaders can be viewed as a tool for writing to RenderTextures in a flexible way - a loop is not strictly necessary. One thing I have used a geometry shader for in the past was storing the vertex positions of a skinned mesh for use in a different shader. I applied a geometry shader to the skinned mesh which created a grid of small quads, one for each vertex of the mesh, each with a color encoding the corresponding vertex position. A camera then captured this grid of quads to a RenderTexture which I could use elsewhere.
 
-For an example of using a geometry shader to draw data into the clipspace of a camera (directly onto the screen) see [this gist](https://gist.github.com/pema99/8b385ae6cef2736f4dea2fd6d4ead01c).
+For an example of using a geometry shader to draw data into the clipspace of a camera (directly onto the screen) see [this gist](https://gist.github.com/pema99/8b385ae6cef2736f4dea2fd6d4ead01c). If combined with a subsequent GrabPass, this data can be made globally accessible, since the GrabPass will essentially take a screenshot of the data that is put directly onto the screen.
 
 ## Blitting to CRT (Custom Render Texture)
 Similar as can be done with cameras, one can use geometry shaders to achieve arbitrary writes in Custom Render Texture shaders. For an example of this, see [cnlohr's flexcrt repo](https://github.com/cnlohr/flexcrt).
 
 ## Examples
-TODO
+- [Show vertex positions on screen](https://gist.github.com/pema99/8b385ae6cef2736f4dea2fd6d4ead01c)
+- [Standard Geometry Shader](https://github.com/keijiro/StandardGeometryShader)
