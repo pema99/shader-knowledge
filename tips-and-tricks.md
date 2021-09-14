@@ -307,3 +307,41 @@ Some pages showing attributes for switch statements and other flow control:
 - https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-if
 - https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-while
 - https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-for
+
+### Easy way to show UV unwrap in clipspace
+```glsl
+Shader "UVUnwrap"
+{
+    SubShader
+    {
+        Pass
+        {
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+
+            struct v2f
+            {
+                float2 uv : TEXCOORD0;
+                float4 vertex : SV_POSITION;
+            };
+
+            v2f vert (float2 uv : TEXCOORD0)
+            {
+                v2f o;
+                o.vertex = float4(float2(1,-1)*(uv*2-1),0,1);
+                o.uv = uv;
+                return o;
+            }
+
+            float4 frag (v2f i) : SV_Target
+            {
+                return float4(i.uv, 0, 1);
+            }
+            ENDCG
+        }
+    }
+}
+```
+
+Note the `o.vertex = float4(float2(1,-1)*(uv*2-1),0,1);`. Thanks, Lyuma.
