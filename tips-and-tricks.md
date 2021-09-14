@@ -54,6 +54,27 @@ sampler2D _MyGlobalTexture;
 ```
 [This is what AudioLink uses to make a data texture available to avatars](https://github.com/llealloo/vrc-udon-audio-link/blob/master/AudioLink/Shaders/AudioTextureExport.shader)
 
+### Checking if a texture exists
+You can check for existance (if it has been set) of a texture as such:
+```glsl
+Texture2D _MyTexture;
+
+bool TextureExists()
+{
+    int width, height;
+    _MyTexture.GetDimensions(width, height);
+    return width > 16;
+}
+```
+This is especially useful when accessing globally exported GrabPass textures. Keep in mind the texture must be declared as `Texture2D`, not `sampler2D`.
+Thanks to ACIIL for finding this originally.
+
+To make use of this in a surface shader, you should wrap the code in a `SHADER_TARGET_SURFACE_ANALYSIS` guard:
+```glsl
+#ifndef SHADER_TARGET_SURFACE_ANALYSIS
+// call Texture2D.GetDimensions here
+#endif
+```
 
 ### Cheap wireframe abusing MSAA
 Courtesy of d4rkpl4y3r.
@@ -76,28 +97,6 @@ Pass
 Comparison without and with this pass
 
 ![img](images/Misc1.png)
-
-### Checking if a texture exists
-You can check for existance (if it has been set) of a texture as such:
-```glsl
-Texture2D _MyTexture;
-
-bool TextureExists()
-{
-    int width, height;
-    _MyTexture.GetDimensions(width, height);
-    return width > 16;
-}
-```
-This is especially useful when accessing globally exported GrabPass textures. Keep in mind the texture must be declared as `Texture2D`, not `sampler2D`.
-Thanks to ACIIL for finding this originally.
-
-To make use of this in a surface shader, you should wrap the code in a `SHADER_TARGET_SURFACE_ANALYSIS` guard:
-```glsl
-#ifndef SHADER_TARGET_SURFACE_ANALYSIS
-// call Texture2D.GetDimensions here
-#endif
-```
 
 ### GLSL modulo operator
 Use this instead of HLSL's piece of shit `fmod`. It behaves better on negative numbers.
