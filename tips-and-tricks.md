@@ -345,3 +345,34 @@ Shader "UVUnwrap"
 ```
 
 Note the `o.vertex = float4(float2(1,-1)*(uv*2-1),0,1);`. Thanks, Lyuma.
+
+### Encoding and decoding data in a GrabPass
+In worlds with HDR-enabled, GrabPasses will write to a FP16 render target, making them slightly annoying to encode data in. For this purpose, Merlin wrote some nice functions to store perfect 32 bit uints (or perfect 32 bit floats by first converting) in a half-precision float vector.
+```glsl
+// Packing/unpacking routines for saving integers to R16G16B16A16_FLOAT textures
+// Heavily based off of https://github.com/apitrace/dxsdk/blob/master/Include/d3dx_dxgiformatconvert.inl
+// For some reason the last 2 bits get stomped so we'll only allow uint14 for now :(
+float uint14ToFloat(uint input)
+{
+    precise float output = (f16tof32((input & 0x00003fff)));
+    return output;
+}
+
+uint floatToUint14(precise float input)
+{
+    uint output = (f32tof16(input)) & 0x00003fff;
+    return output;
+}
+
+// Encodes a 32 bit uint into 3 half precision floats
+float3 uintToHalf3(uint input)
+{
+    precise float3 output = float3(uint14ToFloat(input), uint14ToFloat(input >> 14), uint14ToFloat((input >> 28) & 0x0000000f));
+    return output;
+}
+
+uint half3ToUint(precise float3 input)
+{
+    return floatToUint14(input.x) | (floatToUint14(input.y) << 14) | ((floatToUint14(input.z) & 0x0000000f) << 28);
+}
+```
