@@ -224,6 +224,8 @@ For all remote avatars, this setting is forced **off**.
 
 Both of these behaviors happen regardless of the settings you have chosen. This can cause culling issues when part of a Skinned Mesh Renderer is outside of its minimal bounding box (for example when creating geometry with a geometry shader), and may lead to issues where remote players can see the geometry, but the local player cannot.
 
+Similar to cameras, you can override this behaviour with an animation targeting the setting, for example if you want to have your custom (or even animated) bounds apply locally too.
+
 Thank you Lox for enlightening me with this arcane knowledge.
 
 ### Usable default values for shader texture properties
