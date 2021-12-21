@@ -89,7 +89,7 @@ SubShader
 {
     ...
 }
-FallBack "Diffuse"
+FallBack "Standard"
 ```
 
 ## A note on normals
