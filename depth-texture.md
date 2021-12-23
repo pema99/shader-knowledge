@@ -92,6 +92,16 @@ SubShader
 FallBack "Standard"
 ```
 
+## Detecting whether shader is rendering to Camera Depth Texture
+As mentioned above, a `ShadowCaster` pass is required for a shader to render to the Camera Depth Texture. Since that pass is also used to render shadows, it can be useful to disambiguate whether we are currently rendering into the Camera Depth Texture or not. That can be achieved with the following code:
+```glsl
+if (!dot(unity_LightShadowBias, 1))
+{
+    // this code will only run when rendering to camera depth texture
+}
+```
+Thanks, Silent!
+
 ## A note on normals
 The simplest way to calculate normals from depth is by taking the gradient of the reconstructed world space position using `ddx(...)` and `ddy(...)`. This works, but results in very jagged looking normals at the edges of objects. There are better, slightly more expensive ways of calculating normals, some of which are described here (praise bgolus):
 - https://twitter.com/bgolus/status/1365449067770220551
