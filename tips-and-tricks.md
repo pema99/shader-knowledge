@@ -104,14 +104,6 @@ Use this instead of HLSL's piece of shit `fmod`. It behaves better on negative n
 #define glsl_mod(x,y) (((x)-(y)*floor((x)/(y))))
 ```
 
-### Check if shader is being rendered in mirror
-```glsl
-bool isInMirror()
-{
-    return unity_CameraProjection[2][0] != 0.f || unity_CameraProjection[2][1] != 0.f;
-}
-```
-
 ### Some tricks with shader properties
 You can make an integer slider property using the IntRange attribute such:
 
