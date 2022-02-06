@@ -62,7 +62,7 @@ In other words, with 2 cameras CamA and CamB with 2 materials MatA and MatB read
 
 **CamA writes to TexA and looks at a quad with MatA. MatA reads from TexB.**
 
-**CamA writes to TexB and looks at a quad with MatB. MatB reads from TexA.**
+**CamB writes to TexB and looks at a quad with MatB. MatB reads from TexA.**
 
 Remember that one of these materials (either MatA or MatB) should have a simple unlit textured shader.
 
