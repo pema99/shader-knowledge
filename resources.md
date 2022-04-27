@@ -5,3 +5,4 @@
 - [lyuma's TLX talk](https://www.youtube.com/watch?v=tWyseAtkrcE) - About writing shaders
 - [cnlohr's flexcrt](https://github.com/cnlohr/flexcrt) - Shows arbitrary write capability in Custom Render Textures using geometry shaders
 - [skuld's shader spreadsheet](https://docs.google.com/spreadsheets/d/1hCPot9-jRE2v0OztASJ2H8I3TcaPgDZ9QKcvYVtOnW4) - Quick reference for new and intermediate VRC shader developers
+- [kit's screenspace data example](https://github.com/cutesthypnotist/VRC-Screenspace-Data-Example) - An example of how to use a GrabPass to export data to the screen for use in compute-shader-like effects
