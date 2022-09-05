@@ -201,12 +201,6 @@ Notice the name 'my_point_clamp_sampler'. The following case insensitive keyword
 | MirrorOnce | Mirror Once when reading outside of [0;1] |
 | Compare    | Set up sampler for depth comparison       |
 
-### Shader fallbacks
-When someone doesn't show the shaders on your avatar via safety settings, a fairly non-trivial system decides which built in shader to use instead. The only explanation for the logic this system uses is described here:
-[https://pastebin.com/92gwQqCM](https://pastebin.com/92gwQqCM).
-
-Thanks to Red_Mage for sharing.
-
 ### Update When Offscreen setting for Skinned Mesh Renderer
 The "Update When Offscreen" setting on Skinned Mesh Renderers has special behavior in VRChat.
 
