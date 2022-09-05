@@ -244,6 +244,7 @@ unity_RandomRotation16
 unity_NHxRoughness
 unity_SpecCube0
 unity_SpecCube1
+unity_ProbeVolumeSH
 ```
 This is useful for scenarios where you want users to be able to set an override for, for example, lightmaps or reflection probes:
 ```txt
