@@ -62,7 +62,7 @@ Shader "Pema99/Raymarching Example"
                 return length(position) - radius;
             }
 
-            // An operator for combining multiple SDFs in a meaningful way. This will one union two SDFs, in a way
+            // An operator for combining multiple SDFs in a meaningful way. This one will union two SDFs, in a way
             // that produces a nice smooth transition where they intersect. Don't worry about not understanding the math.
             // More operators here: https://iquilezles.org/articles/distfunctions/
             // Explanation of smooth union: https://iquilezles.org/articles/smin/
