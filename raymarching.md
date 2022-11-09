@@ -9,6 +9,8 @@ To actually learn raymarching, I suggest these links:
 - https://www.shadertoy.com/view/XllGW4
 - https://www.shadertoy.com/
 
+An well commented example of small raymarcher I've written [is available here](https://github.com/pema99/shader-knowledge/blob/main/attachments/RaymarchingExample.shader). It shows marching both in world and object space, as well as how to write depth values.
+
 ## Setting up the camera
 To make our raymarched shader look 3D in Unity (and in game), we need to calculate the ray origin and direction for each pixel based on the main camera position.
 
