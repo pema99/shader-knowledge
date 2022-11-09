@@ -12,7 +12,7 @@ Shader "Pema99/Raymarching Example"
         Tags { "Queue"="Transparent" "DisableBatching"="True" }
         Pass
         {
-            Cull Front // Only render backfaces, we don't need anything more
+            Cull Front // Only render backfaces, we don't need anything more.
 
             CGPROGRAM
             #pragma target 5.0
@@ -28,8 +28,8 @@ Shader "Pema99/Raymarching Example"
             struct v2f
             {
                 float4 vertex : SV_POSITION;
-                float3 camera_position : TEXCOORD0;  // Position of rendering camera in either world or object space
-                float3 surface_position : TEXCOORD1; // Position of a given fragment in either world or object space
+                float3 camera_position : TEXCOORD0;  // Position of rendering camera in either world or object space.
+                float3 surface_position : TEXCOORD1; // Position of a given fragment in either world or object space.
             };
 
             v2f vert (appdata_base v)
