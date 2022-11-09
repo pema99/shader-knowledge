@@ -1,4 +1,4 @@
-Shader "Gaming"
+Shader "Pema99/Raymarching Example"
 {
     Properties
     {
