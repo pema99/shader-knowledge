@@ -39,7 +39,7 @@ Shader "Pema99/Raymarching Example"
 
                 // Here was pass through the camera and fragment position, both in either world or object space, depending on
                 // which space we plan to raymarch in. Marching in object space will cause the rendered geometry to move 
-                // with the whatever renderer the shader is applied to. When marching in world space, that isn't the case.
+                // with whatever renderer the shader is applied to. When marching in world space, that isn't the case.
                 if (_WorldSpace)
                 {
                     o.camera_position = _WorldSpaceCameraPos;
@@ -54,8 +54,8 @@ Shader "Pema99/Raymarching Example"
                 return o;
             }
 
-            // A signed distance function (SDF) for a simple sphere centered at the origin.
-            // SDFs take in a position, and return the distance from the surface described by the SDF to that position.
+            // A signed distance function (SDF) for a simple sphere centered at the origin (0, 0, 0).
+            // SDFs take in a position, and return the closest distance from the surface described by the SDF, to that position.
             // You can find more SDFs here: https://iquilezles.org/articles/distfunctions/ 
             float sphere_sdf(float3 position, float radius)
             {
@@ -113,7 +113,7 @@ Shader "Pema99/Raymarching Example"
                 float total_distance = 0; // How far along the ray we have travelled thus far.
                 for (uint i = 0; i < _Iterations; i++)
                 {
-                    // Calculate at which point on the ray we currently are.
+                    // Calculate at which point along the ray we currently are.
                     float3 current_position = ray_origin + ray_direction * total_distance;
                     // Calculate the distance from the scene to that point.
                     float current_distance = map(current_position);
@@ -142,7 +142,7 @@ Shader "Pema99/Raymarching Example"
                 float total_distance = result.x;
                 float steps_taken = result.y;
                 
-                // If we went past our max distance, throw away the pixel and let it be transparent.
+                // If we went past our set max distance, throw away the pixel and let it be transparent.
                 if (total_distance >= _MaxDist)
                 {
                     discard;
@@ -170,18 +170,18 @@ Shader "Pema99/Raymarching Example"
                 depth = clip_position.z / clip_position.w; // The elusive perspective projection.
 
                 // Finally, we can shade our raymarched surface. First, let's base the color off the calculated normal,
-                // but do some math to map from [-1;1] to [0;1] since we can't see negative colors
+                // but do some math to map from [-1;1] to [0;1], since we can't see negative colors!
                 float3 base_color = hit_normal * 0.5 + 0.5; 
                 
                 // Here's a nifty trick, if you divide the steps taken during marching with a constant (often some multiple
                 // of the max iteration count), you get a nice approximation of ambient occlusion. This essentially works
-                // because it takes more steps for the raymarching algorithm to walk through tight crevices.
+                // because it takes more steps for the raymarching algorithm to get through tight crevices.
                 float ambient_occlusion = 1.0 - (steps_taken / _Iterations);
 
                 // Multiply fake ambient occlusion onto the base color to get the final color.
-                // You could do whatever kind of shading you want here, such as simple lighting, reflection, whatever.
+                // You could do whatever kind of shading you want here, such as simple lighting, reflections, whatever.
                 // The normal vector and hit position are pretty much all you'll need.
-                return float4(base_color * ambient_occlusion, 1);
+                return float4(base_color * ambient_occlusion, 1.0);
             }
             ENDCG
         }
