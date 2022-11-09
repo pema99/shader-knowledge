@@ -92,13 +92,13 @@ Shader "Pema99/Raymarching Example"
             // It does so by numerically estimating the gradient of the distance function, by sampling it
             // at a few 'jittered' positions, and normalizing the result.
             // More info here: https://iquilezles.org/articles/normalsSDF/
-            float3 normal(float3 p)
+            float3 normal(float3 position)
             {
                 float2 offset = float2(0, 0.02);
                 return normalize(float3(
-                    map(p + offset.yxx) - map(p - offset.yxx),
-                    map(p + offset.xyx) - map(p - offset.xyx),
-                    map(p + offset.xxy) - map(p - offset.xxy)
+                    map(position + offset.yxx) - map(position - offset.yxx),
+                    map(position + offset.xyx) - map(position - offset.xyx),
+                    map(position + offset.xxy) - map(position - offset.xxy)
                 ));
             }
 
