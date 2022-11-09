@@ -12,7 +12,7 @@ Shader "Pema99/Raymarching Example"
         Tags { "Queue"="Transparent" "DisableBatching"="True" }
         Pass
         {
-            Cull Front // Only render backfaces, we don't anything more
+            Cull Front // Only render backfaces, we don't need anything more
 
             CGPROGRAM
             #pragma target 5.0
