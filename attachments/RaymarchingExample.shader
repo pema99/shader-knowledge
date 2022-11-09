@@ -10,7 +10,6 @@ Shader "Pema99/Raymarching Example"
     SubShader
     {
         Tags { "Queue"="Transparent" "DisableBatching"="True" }
-        
         Pass
         {
             Cull Front // Only render backfaces, we don't anything more
