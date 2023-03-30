@@ -364,3 +364,10 @@ uint half3ToUint(precise float3 input)
     return floatToUint14(input.x) | (floatToUint14(input.y) << 14) | ((floatToUint14(input.z) & 0x0000000f) << 28);
 }
 ```
+
+### Skipping shader optimization
+You can make larger shaders compile much faster by disabling compiler optimizations using a pragma. Add a line like this to your shader:
+```
+#pragma skip_optimizations d3d11
+```
+Where `d3d11` is the graphics API you are using. Note that this will make the compiled shader less performant, so is mostly useful when iterating. Never leave this line in shaders intended for production.
