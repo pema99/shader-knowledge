@@ -43,6 +43,9 @@ Depth based effects will show up incorrectly in VRChat mirrors without special h
 
 https://github.com/lukis101/VRCUnityStuffs/blob/master/Shaders/DJL/Overlays/WorldPosOblique.shader
 
+Alternatively, here is a simpler approach that uses a matrix inversion:
+https://gist.github.com/pema99/b13a76508bba3e8b70caaaea920ec1c3
+
 ## Making shaders show up in the depth texture
 For a shader to appear in the depth texture, a couple of properties must be satisfied:
 - The shader/material must have `ZWrite On`.
