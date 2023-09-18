@@ -180,7 +180,7 @@ bool isInMirror()
 }
 ```
 
-```
+```glsl
 uniform float _VRChatMirrorMode;
 uniform float3 _VRChatMirrorCameraPos;
 
