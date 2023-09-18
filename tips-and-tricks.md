@@ -180,6 +180,32 @@ bool isInMirror()
 }
 ```
 
+```
+uniform float _VRChatMirrorMode;
+uniform float3 _VRChatMirrorCameraPos;
+
+bool IsVR() {
+    #if defined(USING_STEREO_MATRICES)
+    return true;
+    #else
+    return _VRChatMirrorMode == 1;
+    #endif
+}
+
+bool IsRightEye()
+{
+    #if defined(USING_STEREO_MATRICES)
+    return unity_StereoEyeIndex == 1;
+    #else
+    return _VRChatMirrorMode == 1 && mul(unity_WorldToCamera, float4(_VRChatMirrorCameraPos, 1)).x < 0;
+    #endif
+}
+
+bool IsLeftEye() { return !IsRightEye(); }
+
+bool IsDesktop() { return !IsVR(); }
+```
+
 ### Inline sampler states
 Sometimes you want to control the settings used for sampling a texture you don't have access to the importer for, like a texture exported from a GrabPass. In such cases, you can use inline sampler states ([https://docs.unity3d.com/Manual/SL-SamplerStates.html](https://docs.unity3d.com/Manual/SL-SamplerStates.html)). The idea is to include certain keywords in the name of your `SamplerState` declaration:
 
