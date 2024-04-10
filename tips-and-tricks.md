@@ -444,3 +444,44 @@ float4x4 inverse(float4x4 mat)
 
 ### Mipmaps for prefix sum
 D4rkpl4y3r describes in [this series of posts](https://twitter.com/d4rkpl4y3r_vr/status/1550151768067215362) how one can use mipmaps to efficiently implement compaction (or other kinds of prefix sum).
+
+### Order of Spherical Harmonics shader coefficients
+Below is a snippet describing the correspondence between SphericalHarmonicsL2 and the properties fed to shaders (unity_SHAr...unity_SHC):
+```cs
+// outCoeffs must be size 7
+private void SHToShaderCoefficients(ref SphericalHarmonicsL2 sh, ref Vector4[] outCoeffs)
+{
+// outCoeffs will have this order:
+// [0] = unity_SHAr
+// [1] = unity_SHAg
+// [2] = unity_SHAb
+// [3] = unity_SHBr
+// [4] = unity_SHBg
+// [5] = unity_SHBb
+// [6] = unity_SHC
+
+for (int i = 0; i < 3; i++)
+{
+    outCoeffs[i] = new Vector4(
+	sh[i, 3],
+	sh[i, 1],
+	sh[i, 2],
+	sh[i, 0] - sh[i, 6]
+    );
+
+    outCoeffs[i + 3] = new Vector4(
+	sh[i, 4],
+	sh[i, 5],
+	sh[i, 6] * 3.0f,
+	sh[i, 7]
+    );
+}
+
+outCoeffs[6] = new Vector4(
+    sh[0, 8],
+    sh[1, 8],
+    sh[2, 8],
+    1.0f
+);
+}
+```
