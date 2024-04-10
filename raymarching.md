@@ -5,6 +5,7 @@ Some people use raymarching to create cool effects in VRChat. This page does not
 To actually learn raymarching, I suggest these links:
 - http://jamie-wong.com/2016/07/15/ray-marching-signed-distance-functions/
 - https://iquilezles.org/www/articles/distfunctions/distfunctions.htm
+- https://www.youtube.com/watch?v=khblXafu7iA
 - https://www.youtube.com/watch?v=PGtv-dBi2wE
 - https://www.shadertoy.com/view/XllGW4
 - https://www.shadertoy.com/
