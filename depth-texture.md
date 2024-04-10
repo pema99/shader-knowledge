@@ -2,50 +2,76 @@
 Various methods of using the camera depth texture (or other depth texures) and gotchas when doing so. The camera depth texture is a texture that encodes scene depth for each pixel of the screen. It can be accessed by simply declaring a texture named `_CameraDepthTexture` in your shader, but there are some things to keep in mind when using it and other depth textures (for example depth only RenderTextures).
 
 ## Worldspace from depth
-You can get world space position and normal from the camera depth texture. Here is an example of how to do it. Not sure where this code came from initially, but credits to whoever wrote it. I think it was error.mdl. Keep in mind this will break in mirrors. An alternative method is shown in the following section.
-
+Here is a shader that demonstrates using the `_CameraDepthTexture` to get the world space position of each fragment. Full shader source is [here](https://gist.github.com/pema99/b13a76508bba3e8b70caaaea920ec1c3).
 ```glsl
 struct v2f
 {
-    float2 uv : TEXCOORD0;
-    float4 vertex : SV_POSITION;
-    float4 grabPos : TEXCOORD1;
-    float3 ray : TEXCOORD2;
+    float4 vertex : SV_Position;
+    float4 clipPos : TEXCOORD0;
+    nointerpolation float4x4 inverseVP : IVP;
 };
 
-sampler2D _CameraDepthTexture;
+UNITY_DECLARE_DEPTH_TEXTURE(_CameraDepthTexture);
 
-v2f vert (appdata v)
+float4x4 inverse(float4x4 mat)
+{
+    float4x4 M=transpose(mat);
+    float m01xy=M[0].x*M[1].y-M[0].y*M[1].x;
+    float m01xz=M[0].x*M[1].z-M[0].z*M[1].x;
+    float m01xw=M[0].x*M[1].w-M[0].w*M[1].x;
+    float m01yz=M[0].y*M[1].z-M[0].z*M[1].y;
+    float m01yw=M[0].y*M[1].w-M[0].w*M[1].y;
+    float m01zw=M[0].z*M[1].w-M[0].w*M[1].z;
+    float m23xy=M[2].x*M[3].y-M[2].y*M[3].x;
+    float m23xz=M[2].x*M[3].z-M[2].z*M[3].x;
+    float m23xw=M[2].x*M[3].w-M[2].w*M[3].x;
+    float m23yz=M[2].y*M[3].z-M[2].z*M[3].y;
+    float m23yw=M[2].y*M[3].w-M[2].w*M[3].y;
+    float m23zw=M[2].z*M[3].w-M[2].w*M[3].z;
+    float4 adjM0,adjM1,adjM2,adjM3;
+    adjM0.x=+dot(M[1].yzw,float3(m23zw,-m23yw,m23yz));
+    adjM0.y=-dot(M[0].yzw,float3(m23zw,-m23yw,m23yz));
+    adjM0.z=+dot(M[3].yzw,float3(m01zw,-m01yw,m01yz));
+    adjM0.w=-dot(M[2].yzw,float3(m01zw,-m01yw,m01yz));
+    adjM1.x=-dot(M[1].xzw,float3(m23zw,-m23xw,m23xz));
+    adjM1.y=+dot(M[0].xzw,float3(m23zw,-m23xw,m23xz));
+    adjM1.z=-dot(M[3].xzw,float3(m01zw,-m01xw,m01xz));
+    adjM1.w=+dot(M[2].xzw,float3(m01zw,-m01xw,m01xz));
+    adjM2.x=+dot(M[1].xyw,float3(m23yw,-m23xw,m23xy));
+    adjM2.y=-dot(M[0].xyw,float3(m23yw,-m23xw,m23xy));
+    adjM2.z=+dot(M[3].xyw,float3(m01yw,-m01xw,m01xy));
+    adjM2.w=-dot(M[2].xyw,float3(m01yw,-m01xw,m01xy));
+    adjM3.x=-dot(M[1].xyz,float3(m23yz,-m23xz,m23xy));
+    adjM3.y=+dot(M[0].xyz,float3(m23yz,-m23xz,m23xy));
+    adjM3.z=-dot(M[3].xyz,float3(m01yz,-m01xz,m01xy));
+    adjM3.w=+dot(M[2].xyz,float3(m01yz,-m01xz,m01xy));
+    float invDet=rcp(dot(M[0].xyzw,float4(adjM0.x,adjM1.x,adjM2.x,adjM3.x)));
+    return transpose(float4x4(adjM0*invDet,adjM1*invDet,adjM2*invDet,adjM3*invDet));
+}
+
+v2f vert (float4 vertex : POSITION, float2 uv : TEXCOORD0)
 {
     v2f o;
-    o.vertex = UnityObjectToClipPos(v.vertex);
-    o.uv = v.uv;
-    o.grabPos = ComputeScreenPos(o.vertex);
-    o.ray = mul(UNITY_MATRIX_MV, v.vertex).xyz * float3(-1,-1,1);
+    o.vertex = float4(float2(1,-1)*(uv*2-1),1,1);
+    o.clipPos = o.vertex;
+    o.inverseVP = inverse(UNITY_MATRIX_VP);
     return o;
 }
 
 float4 frag (v2f i) : SV_Target
 {
-    float rawDepth = DecodeFloatRG(tex2Dproj(_CameraDepthTexture, i.grabPos));
-    float linearDepth = Linear01Depth(rawDepth);
-    i.ray = i.ray * (_ProjectionParams.z / i.ray.z);
-    float4 vpos = float4(i.ray * linearDepth, 1);
-    float3 wpos = mul(unity_CameraToWorld, vpos).xyz; // world space frament position
-    float3 wposx = ddx(wpos);
-    float3 wposy = ddy(wpos);
-    float3 normal = normalize(cross(wposy,wposx)); // world space fragment normal
-    ...
+    float4 clipPos = i.clipPos / i.clipPos.w;
+    clipPos.z = tex2Dproj(_CameraDepthTexture, ComputeScreenPos(clipPos));
+    float4 homWorldPos = mul(i.inverseVP, clipPos);
+    float3 wpos = homWorldPos.xyz / homWorldPos.w;
+    return float4(wpos, 1.0f);
+}
 ```
 
 ## Depth based effects in mirrors
-Depth based effects will show up incorrectly in VRChat mirrors without special handling. For an example on how to do this handling, check Lukis shader here:
+Depth based effects will show up incorrectly in VRChat mirrors without special handling due to oblique projection matrices. The shader above should handle this correctly. Alternatively, check out this older shader from DJ Lukis:
 
 https://github.com/lukis101/VRCUnityStuffs/blob/master/Shaders/DJL/Overlays/WorldPosOblique.shader
-
-Alternatively, here is a simpler approach that uses a matrix inversion:
-
-https://gist.github.com/pema99/b13a76508bba3e8b70caaaea920ec1c3
 
 ## Making shaders show up in the depth texture
 For a shader to appear in the depth texture, a couple of properties must be satisfied:
