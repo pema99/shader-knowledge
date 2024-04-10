@@ -73,8 +73,8 @@ Depth based effects will show up incorrectly in VRChat mirrors without special h
 
 https://github.com/lukis101/VRCUnityStuffs/blob/master/Shaders/DJL/Overlays/WorldPosOblique.shader
 
-## Normals from depth
-Once you have the world space position of each fragment, you can use pixel derivatives `ddx` and `ddy` to get an approximation of the normal vector of each fragment:
+## A note on normals
+The simplest way to calculate normals from depth is by taking the gradient of the reconstructed world space position using `ddx(...)` and `ddy(...)`. Like so:
 ```glsl
 ...
 float3 wpos = homWorldPos.xyz / homWorldPos.w; // world space fragment position
@@ -82,6 +82,10 @@ float3 wposx = ddx(wpos);
 float3 wposy = ddy(wpos);
 float3 wnormal = normalize(cross(wposy,wposx)); // world space fragment normal
 ```
+
+This works, but results in very jagged looking normals at the edges of objects. There are better, slightly more expensive ways of calculating normals, some of which are described here (praise bgolus):
+- https://twitter.com/bgolus/status/1365449067770220551
+- https://gist.github.com/bgolus/a07ed65602c009d5e2f753826e8078a0
 
 ## Making shaders show up in the depth texture
 For a shader to appear in the depth texture, a couple of properties must be satisfied:
@@ -141,11 +145,6 @@ if (!dot(unity_LightShadowBias, 1))
 }
 ```
 Thanks, Silent!
-
-## A note on normals
-The simplest way to calculate normals from depth is by taking the gradient of the reconstructed world space position using `ddx(...)` and `ddy(...)`. This works, but results in very jagged looking normals at the edges of objects. There are better, slightly more expensive ways of calculating normals, some of which are described here (praise bgolus):
-- https://twitter.com/bgolus/status/1365449067770220551
-- https://gist.github.com/bgolus/a07ed65602c009d5e2f753826e8078a0
 
 ## Depth buffer is reversed on Oculus Quest
 When writing shaders for the quest, make sure to use the `UNITY_REVERSED_Z` macro.
