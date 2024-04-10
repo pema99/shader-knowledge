@@ -441,3 +441,6 @@ float4x4 inverse(float4x4 mat)
 	return transpose(float4x4(adjM0*invDet,adjM1*invDet,adjM2*invDet,adjM3*invDet));
 }
 ```
+
+### Mipmaps for prefix sum
+D4rkpl4y3r describes in [this series of posts](https://twitter.com/d4rkpl4y3r_vr/status/1550151768067215362) how one can use mipmaps to efficiently implement compaction (or other kinds of prefix sum).
