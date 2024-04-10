@@ -1,4 +1,6 @@
 # Reading shader data into udon
+**Important:** This page is kept for historical reasons. VRChat now has [a built-in API for reading data from a shader back to Udon](https://creators.vrchat.com/worlds/vrc-graphics/asyncgpureadback). 
+
 This page contains information on how to read pixel data from a RenderTexture (for example one used in a camera loop) into udon.
 
 ## What is the purpose
