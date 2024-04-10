@@ -7,3 +7,5 @@
 - [skuld's shader spreadsheet](https://docs.google.com/spreadsheets/d/1hCPot9-jRE2v0OztASJ2H8I3TcaPgDZ9QKcvYVtOnW4) - Quick reference for new and intermediate VRC shader developers
 - [kit's screenspace data example](https://github.com/cutesthypnotist/VRC-Screenspace-Data-Example) - An example of how to use a GrabPass to export data to the screen for use in compute-shader-like effects
 - [quad intrinsics](https://github.com/pema99/shader-knowledge/blob/main/attachments/QuadIntrinsics.cginc) - An emulation of [quad intrinsics](https://microsoft.github.io/DirectX-Specs/d3d/HLSL_SM_6_7_QuadAny_QuadAll.html), usable in SM 5.0 fragment shaders
+- [orels tips](https://tips.orels.sh/) - A large collection of tips and tricks, many of them VRChat and shader related, by orels1
+- [hai's knowledge index](https://hai-vr.notion.site/Knowledge-Index-f53af3099f414e2080b1c0a7425b54e5) - A collection of notes, much of it VRChat and shader related, by Hai
