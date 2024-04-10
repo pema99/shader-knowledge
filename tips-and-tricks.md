@@ -144,6 +144,7 @@ If you open the inspector for a **shader** (not a specific material), you can dr
 ![img](image/../images/Misc2.png)
 
 ### Functions for detecting VRChat specific scenarios
+Note: Some of these are obsolete. Use [https://creators.vrchat.com/worlds/vrc-graphics/vrchat-shader-globals/](VRChat's builtin shader globals) where possible.
 Courtesy of ScruffyRuffles and Merlin.
 ```glsl
 bool isVR() {
