@@ -63,7 +63,7 @@ float4 frag (v2f i) : SV_Target
     float4 clipPos = i.clipPos / i.clipPos.w;
     clipPos.z = tex2Dproj(_CameraDepthTexture, ComputeScreenPos(clipPos));
     float4 homWorldPos = mul(i.inverseVP, clipPos);
-    float3 wpos = homWorldPos.xyz / homWorldPos.w;
+    float3 wpos = homWorldPos.xyz / homWorldPos.w; // world space fragment position
     return float4(wpos, 1.0f);
 }
 ```
@@ -72,6 +72,16 @@ float4 frag (v2f i) : SV_Target
 Depth based effects will show up incorrectly in VRChat mirrors without special handling due to oblique projection matrices. The shader above should handle this correctly. Alternatively, check out this older shader from DJ Lukis:
 
 https://github.com/lukis101/VRCUnityStuffs/blob/master/Shaders/DJL/Overlays/WorldPosOblique.shader
+
+## Normals from depth
+Once you have the world space position of each fragment, you can use pixel derivatives `ddx` and `ddy` to get an approximation of the normal vector of each fragment:
+```
+...
+float3 wpos = homWorldPos.xyz / homWorldPos.w; // world space fragment position
+float3 wposx = ddx(wpos);
+float3 wposy = ddy(wpos);
+float3 wnormal = normalize(cross(wposy,wposx)); // world space fragment normal
+```
 
 ## Making shaders show up in the depth texture
 For a shader to appear in the depth texture, a couple of properties must be satisfied:
