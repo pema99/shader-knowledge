@@ -75,7 +75,7 @@ https://github.com/lukis101/VRCUnityStuffs/blob/master/Shaders/DJL/Overlays/Worl
 
 ## Normals from depth
 Once you have the world space position of each fragment, you can use pixel derivatives `ddx` and `ddy` to get an approximation of the normal vector of each fragment:
-```
+```glsl
 ...
 float3 wpos = homWorldPos.xyz / homWorldPos.w; // world space fragment position
 float3 wposx = ddx(wpos);
