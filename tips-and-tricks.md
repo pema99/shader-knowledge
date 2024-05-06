@@ -490,7 +490,10 @@ private void SHToShaderCoefficients(ref SphericalHarmonicsL2 sh, ref Vector4[] o
 If you declare a texture property without any default texture specified, like so:
 
 ```cs
-_Udon_GlobalTexture("Texture", 2D) = "" {}
+Properties
+{
+    _Udon_GlobalTexture("Texture", 2D) = "" {}
+}
 ```
 
 You are able to override it globally with Shader.SetGlobalTexture(). If you give it a default value, like "white", this doesn't work.
