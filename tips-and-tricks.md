@@ -22,7 +22,7 @@ unity_LightColor[i].a
 
 It is important to set the 'Render Mode' of the point light to 'Not Important' to force the light to be a vertex light.
 
-If possible, you should also put the lights 'Culling Mask' to only 'UiMenu' and put whatever you want to interact with the light on that same layer. That way, you don't add passes to everybodies avatar, causing lag. The UiMenu layer, unlike most other layers, is usable even on avatars.
+If possible, you should also put the lights 'Culling Mask' to only 'UiMenu' and put whatever you want to interact with the light on that same layer. That way, you don't interfere with other scene objects or avatars. The UiMenu layer, unlike most other layers, is usable even on avatars.
 
 The `unity_4LightPos` arrays will contain positions of vertex lights, but may also contain positions of pixel lights (Render Mode = Important or Auto) if the shader doesn't contain an add pass. To prevent these arrays from being polluted with random pixel lights, you can add an additional pass to the shader with the tag `Tags { "LightMode"="ForwardAdd" }`, which does nothing:
 ```glsl
