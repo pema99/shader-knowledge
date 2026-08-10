@@ -52,7 +52,7 @@ Then any shader can access it by just declaring a field:
 sampler2D _MyGlobalTexture;
 ...
 ```
-[This is what AudioLink uses to make a data texture available to avatars](https://github.com/llealloo/vrc-udon-audio-link/blob/master/AudioLink/Shaders/AudioTextureExport.shader)
+[AudioLink used this to make a data texture available avatars](https://github.com/llealloo/audiolink/blob/89380bc62fd4d28c2343eb74c070909cd4a75a07/Packages/com.llealloo.audiolink/Runtime/Shaders/AudioTextureExport.shader) prior to VRChat adding an [Udon api for setting shader globals](https://creators.vrchat.com/worlds/udon/vrc-graphics/#vrcshadersetglobal)
 
 ### Checking if a texture exists
 You can check for existance (if it has been set) of a texture as such:
@@ -144,7 +144,7 @@ If you open the inspector for a **shader** (not a specific material), you can dr
 ![img](image/../images/Misc2.png)
 
 ### Functions for detecting VRChat specific scenarios
-Note: Some of these are obsolete. Use [VRChat's builtin shader globals](https://creators.vrchat.com/worlds/vrc-graphics/vrchat-shader-globals/) where possible.
+Note: Some of these are obsolete. Use [VRChat's builtin shader globals](https://creators.vrchat.com/worlds/udon/vrc-graphics/vrchat-shader-globals/) where possible.
 Courtesy of ScruffyRuffles and Merlin.
 ```glsl
 bool isVR() {
