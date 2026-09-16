@@ -1,3 +1,5 @@
+**Note: I no longer actively maintain this repository. The information here should still be mostly correct. If you spot any issues, or want to add information about a topic, I will gladly accept pull requests.**
+
 # Shader knowledge
 Trying to document obscure technical VRChat knowledge, mostly related to shader development. If I'm wrong about something feel free to correct me with an issue, PR, or message on discord @pema99. Same goes if you have any topics to add information about.
 
